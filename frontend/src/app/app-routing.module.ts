@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { IsNotLoggedInGuard } from './guards/is-not-logged-in-guard.guard';
-import { NotFoundComponent } from './pages/not-found/not-found.component'; // Tambahkan komponen NotFound
+import { NotFoundComponent } from './pages/Auth/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -17,7 +17,6 @@ const routes: Routes = [
     canActivate: [IsNotLoggedInGuard]
   },
 
-  // Tambahkan komponen yang sesuai untuk path wildcard
   { path: '**', pathMatch: 'full', component: NotFoundComponent, data: { layout: 'login' } },
 ];
 
