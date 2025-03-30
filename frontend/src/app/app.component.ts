@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   trigger,
   state,
@@ -21,6 +22,4 @@ import {
     ])
   ]
 })
-export class AppComponent {
-  title = 'Not Found';
-}
+export class AppComponent {}
