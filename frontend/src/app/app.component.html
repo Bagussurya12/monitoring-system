@@ -13,14 +13,15 @@
       Sepertinya Anda tersesat di alam digital.
       <br>Halaman yang Anda cari mungkin telah dipindahkan atau tidak ada.
     </p>
-
-    <button
-      routerLink="/"
+    <a
       class="home-button"
       mat-raised-button
-      color="primary">
-      <button>home</button>
-      Kembali ke Beranda
-    </button>
+      color="primary"
+      routerLink="/login"
+      >
+      Login
+    </a>
   </div>
 </div>
+
+<router-outlet></router-outlet>
