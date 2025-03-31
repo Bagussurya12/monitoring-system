@@ -1,29 +1,91 @@
-<div class="relative w-full lg:max-w-7xl flex items-center m-auto">
-  <div class="w-full lg:w-50 justify-center gap-12 px-6 pt-16">
-      <div style="max-width: 500px; margin: 0 auto; width: 100%">
-          <div>
-              <h1 class="text-lg my-3 text-center">
-                  Log in to start your session
-              </h1>
-          </div>
-          <div class="my-4 rounded-lg w-100 bg-red-100 p-5 text-base text-red-700" *ngIf="errorMessage !== null && errorMessage !== undefined && errorMessage.length > 0">
-              {{ errorMessage }}
-          </div>
-          <div class="grid my-3.5">
-            <div class="form-group mb-3">
-              <label class="form-control-label" for="username">Username</label>
-              <input type="text" class="form-element boxed" (keyup.enter)="login()" name="username" placeholder="Enter Username" id="username" [(ngModel)]="username">
-            </div>
-            <div class="form-group mb-4">
-              <label class="form-control-label" for="password">Password</label>
-              <input type="password" class="form-element boxed" (keyup.enter)="login()" name="password" placeholder="Enter Password" id="password" [(ngModel)]="password">
-            </div>
-            <div class="form-group">
-              <button type="submit" [disabled]="loading" class="relative flex items-center justify-center text-white px-6 py-3 text-base rounded-lg sm:col-span-6 client-button" style="width: 100%" (click)="login()">
-                Log In
-              </button>
-            </div>
-          </div>
+<div class="relative w-full flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-amber-50 animate__animated animate__fadeIn">
+  <!-- Background decorative elements -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute top-20 left-20 w-32 h-32 bg-amber-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+    <div class="absolute bottom-20 right-20 w-32 h-32 bg-gray-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+  </div>
+
+  <div class="w-full max-w-md px-4 py-12 relative z-10">
+    <!-- Logo with animation -->
+    <div class="text-center mb-8 animate__animated animate__bounceIn">
+      <div class="flex items-center justify-center mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <h1 class="text-3xl font-bold text-gray-800 ml-2">
+          Pojok<span class="text-amber-600">Properti</span>
+        </h1>
       </div>
+      <p class="text-gray-500">Log in to start your session</p>
+    </div>
+
+    <!-- Login card with animation -->
+    <div class="w-full bg-white p-8 rounded-2xl shadow-xl transform transition-all duration-500 hover:shadow-2xl animate__animated animate__fadeInUp">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage"
+           class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg mb-6 animate__animated animate__headShake">
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+          {{ errorMessage }}
+        </div>
+      </div>
+
+      <!-- Form with staggered animations -->
+      <form class="space-y-6">
+        <!-- Username Field -->
+        <div class="form-group animate__animated animate__fadeInLeft animate__delay-1s">
+          <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <input type="text" id="username" name="username" [(ngModel)]="username"
+                   class="pl-10 mt-1 px-4 py-3 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-300"
+                   placeholder="Enter Username" (keyup.enter)="login()">
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group animate__animated animate__fadeInLeft animate__delay-2s">
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <input type="password" id="password" name="password" [(ngModel)]="password"
+                   class="pl-10 mt-1 px-4 py-3 w-full border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-300"
+                   placeholder="Enter Password" (keyup.enter)="login()">
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="animate__animated animate__fadeInUp animate__delay-3s">
+          <button type="button"
+                  [disabled]="loading"
+                  (click)="login()"
+                  class="w-full relative overflow-hidden bg-gradient-to-r from-amber-500 to-amber-600 text-white py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-opacity-50">
+            <span class="relative z-10 flex items-center justify-center">
+              <span *ngIf="!loading">Log In</span>
+              <span *ngIf="loading" class="flex items-center">
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </span>
+            </span>
+            <span class="absolute inset-0 bg-gradient-to-r from-amber-600 to-amber-700 opacity-0 hover:opacity-100 transition-opacity duration-300"></span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Footer Links -->
+    </div>
   </div>
 </div>

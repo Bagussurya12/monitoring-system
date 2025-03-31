@@ -19,14 +19,14 @@ class LoginController extends Controller
         if (empty($user)) {
             return response()->json([
                 'error' => true,
-                'error_message' => 'Invalid login credentials!'
+                'error_message' => 'Username or Password Wrong!'
             ]);
         }
 
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([
                 'error' => true,
-                'error_message' => 'Invalid login credentials!'
+                'error_message' => 'Username or Password Wrong!'
             ]);
         }
 
