@@ -11,7 +11,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
     }
 
     /**
@@ -19,6 +18,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if(config('app.env') === 'production' || config('app.env') === 'internal-testing' || config('app.env') === 'uat-production' || config('app.env') === 'demo') {
+            \URL::forceScheme('https');
+        }
     }
 }

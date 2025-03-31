@@ -1,30 +1,35 @@
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <img class="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
-    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+<div *ngIf="layout === 'login' || layout === 'wizard' || layout === 'export' || layout === 'electronic'">
+  <router-outlet></router-outlet>
+</div>
+<div *ngIf="layout === 'app'">
+  <div class="w-70 h-screen flex fixed top-0 js-menu z-20 xl:z-10 transition-all ltr:-left-80 rtl:-right-80 xl:ltr:left-0 xl:rtl:right-0">
+      <nav class="menu-list js-main-menu">
+          <div class="main-menu transform">
+              <div class="navbar-inner">
+                  <img src="/assets/images/client.jpg" class="m-auto mb-5">
+                  <ul class="flex flex-col justify-center">
+                      <li class="group relative pb-2.5 text-sm">
+                          <a class="flex items-center text-purple cursor-pointer" [routerLink]="'/home'" [class.font-semibold]="activeRoute.startsWith('/home')">
+                              <div class="w-8 h-8 flex items-center justify-center mr-3 pointer-events-none">
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                      <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+                                      <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+                                  </svg>
+                              </div>
+                              Home
+                              <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"
+                                  [class.opacity-0]="!activeRoute.startsWith('/home')"
+                              ></span>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
   </div>
-
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" action="#" method="POST">
-      <div>
-        <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
-        <div class="mt-2">
-          <input type="email" name="email" id="email" autocomplete="email" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-        </div>
+  <div class="main-content transition-all ease-in-out" id="panel" style="margin-left: 14rem">
+      <div id="main-body">
+          <router-outlet></router-outlet>
       </div>
-
-      <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
-        </div>
-        <div class="mt-2">
-          <input type="password" name="password" id="password" autocomplete="current-password" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-        </div>
-      </div>
-
-      <div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-amber-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-amber-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600">Sign in</button>
-      </div>
-    </form>
   </div>
 </div>
