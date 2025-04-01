@@ -32,6 +32,7 @@ export class UsersComponent implements OnInit {
   modalUsers : any = [];
 
   showResetModal: boolean = false;
+  showDeleteModal: boolean = false;
   selectedUser: any = null;
 
   successState: string = ''
@@ -151,7 +152,7 @@ export class UsersComponent implements OnInit {
   async delete(user: any) {
     this.errorMessage = '';
     this.successMessage = '';
-    if (confirm('Are you sure you want to delete this user?')) {
+
       this.loading = true;
       try {
         const res = await axios.delete(`${environment.api_url}/settings/users/${user.id}`, {
@@ -180,7 +181,6 @@ export class UsersComponent implements OnInit {
         console.log(error);
         this.errorMessage = 'Sorry, something went wrong. Please try again later!';
       }
-    }
   }
 
   async export() {
@@ -229,14 +229,27 @@ export class UsersComponent implements OnInit {
     this.showResetModal = true;
   }
 
+  openDeleteModal(user: any){
+    this.selectedUser = user;
+    this.showDeleteModal = true;
+  }
+
   closeModal() {
     this.showResetModal = false;
+    this.showDeleteModal = false;
     this.selectedUser = null;
   }
 
   confirmReset() {
     if (this.selectedUser) {
       this.resetTwoFa(this.selectedUser);
+    }
+    this.closeModal();
+  }
+
+  confirmDelete(){
+    if(this.selectedUser){
+      this.delete(this.selectedUser)
     }
     this.closeModal();
   }
