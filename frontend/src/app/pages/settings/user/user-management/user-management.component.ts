@@ -3,13 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import axios from 'axios';
 import { PermissionService } from 'src/app/services/permission/permission.service';
 import { environment } from 'src/environments/environment';
-import { Location } from '@angular/common';
 import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-user-management',
+  templateUrl: './user-management.component.html',
+  styleUrls: ['./user-management.component.scss']
 })
 export class UsersComponent implements OnInit {
   loading = false;
