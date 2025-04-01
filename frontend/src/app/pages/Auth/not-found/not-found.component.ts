@@ -22,4 +22,7 @@ import {
     ])
   ]
 })
-export class NotFoundComponent {}
+export class NotFoundComponent {
+
+
+}

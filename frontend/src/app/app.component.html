@@ -2,14 +2,24 @@
   <router-outlet></router-outlet>
 </div>
 <div *ngIf="layout === 'app'">
-  <div class="w-70 h-screen flex fixed top-0 js-menu z-20 xl:z-10 transition-all ltr:-left-80 rtl:-right-80 xl:ltr:left-0 xl:rtl:right-0">
+  <div class="w-70 h-screen flex fixed top-0 js-menu z-20 xl:z-10 transition-all ltr:-left-80 rtl:-right-80 xl:ltr:left-0 xl:rtl:right-0 bg-amber-50 px-4 mr-2">
       <nav class="menu-list js-main-menu">
           <div class="main-menu transform">
               <div class="navbar-inner">
-                  <img src="/assets/images/client.jpg" class="m-auto mb-5">
+                   <!-- Logo with animation -->
+                  <div class="text-center mt-8 mb-8 animate__animated animate__bounceIn">
+                    <div class="flex items-center justify-center mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                      </svg>
+                      <h1 class="text-xl font-bold text-gray-800 ml-2">
+                        Pojok<span class="text-amber-600">Properti</span>
+                      </h1>
+                    </div>
+                  </div>
                   <ul class="flex flex-col justify-center">
                       <li class="group relative pb-2.5 text-sm">
-                          <a class="flex items-center text-purple cursor-pointer" [routerLink]="'/home'" [class.font-semibold]="activeRoute.startsWith('/home')">
+                          <a class="flex items-center text-gray-800 cursor-pointer" [routerLink]="'/home'" [class.font-semibold]="activeRoute.startsWith('/home')">
                               <div class="w-8 h-8 flex items-center justify-center mr-3 pointer-events-none">
                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                                       <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
@@ -22,6 +32,7 @@
                               ></span>
                           </a>
                       </li>
+                      <app-settings-link></app-settings-link>
                   </ul>
               </div>
           </div>

@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
 
       const token = data.api_token;
       window.localStorage.setItem(environment.api_token_identifier, token);
-      this.router.navigateByUrl('/two-fa-verification');
+      this.router.navigateByUrl('/home');
     } catch (error) {
       console.log(error);
       this.loading = false;
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     const storedToken = window.localStorage.getItem(environment.api_token_identifier);
     if (storedToken !== null && storedToken !== undefined && storedToken.length > 0) {
-      this.router.navigateByUrl('/two-fa-verification');
+      this.router.navigateByUrl('/home');
     }
   }
 
