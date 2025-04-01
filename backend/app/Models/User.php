@@ -72,14 +72,4 @@ class User extends Authenticatable
     {
         return $this->morphToMany(Role::class, 'model', 'model_has_roles', 'model_id', 'role_id');
     }
-
-	public function recipeComments()
-	{
-		return $this->hasMany(RecipeComment::class, 'user_id');
-    }
-
-	public function stockMovementBufferedGoods()
-	{
-		return $this->hasMany(StockMovementBufferedGood::class, 'user_id');
-	}
 }

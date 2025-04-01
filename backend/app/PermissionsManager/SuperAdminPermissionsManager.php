@@ -7,17 +7,30 @@ use App\PermissionsManager\PermissionsManager;
 class SuperAdminPermissionsManager extends PermissionsManager
 {
     public $permissions = [
-		// ==================== Master Data ===================== //
-        'Settings - View Master Data in Sidebar',
+		// ==================== User Data ===================== //
+        'Settings - View User in Sidebar',
 
         // User Access Management
-        'Settings - Master Data - View User Management in Sidebar',
-        'Settings - Master Data - View Role Management in Sidebar',
-        'Settings - Master Data - Can List User Management',
-        'Settings - Master Data - Can Create User Management',
-        'Settings - Master Data - Can Show User Management',
-        'Settings - Master Data - Can Update User Management',
-        'Settings - Master Data - Can Delete User Management',
-        'Settings - Master Data - Can Reset 2FA User',
+        'Settings - User - View User Management in Sidebar',
+        'Settings - User - View Role Management in Sidebar',
+        'Settings - User - Can List User Management',
+        'Settings - User - Can Create User Management',
+        'Settings - User - Can Show User Management',
+        'Settings - User - Can Update User Management',
+        'Settings - User - Can Delete User Management',
+        'Settings - User - Can Reset 2FA User',
+
+        // Role Access Management
+        'Settings - User - View Role Management in Sidebar',
+        'Settings - User - Can List Role Access Management',
+        'Settings - User - Can Create Role Access Management',
+        'Settings - User - Can Show Role Access Management',
+        'Settings - User - Can Update Role Access Management',
+        'Settings - User - Can Delete Role Access Management',
+        'Settings - User - List Permissions for a User',
+
+        // User Access Management
+        'Settings - User - View Access Management in Sidebar',
+        'Settings - User - Assign Users to Roles',
     ];
 }
