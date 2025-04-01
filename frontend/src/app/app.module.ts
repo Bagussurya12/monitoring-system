@@ -4,13 +4,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { NotFoundModule } from './pages/Auth/not-found/not-found.module'; // ✅ Tambahkan ini
-
+import { NotFoundModule } from './pages/Auth/not-found/not-found.module';
+import { SettingsLinkModule } from './components/sidebar-menu/links/settings-link/settings-link/settings-link.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -18,6 +19,7 @@ import { NotFoundModule } from './pages/Auth/not-found/not-found.module'; // ✅
     BrowserAnimationsModule,
     HttpClientModule,
     HttpClientModule,
+    SettingsLinkModule
   ],
   providers: [
   ],
