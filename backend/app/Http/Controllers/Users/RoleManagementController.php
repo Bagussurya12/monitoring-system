@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Auth\Role as RoleAccess;
-use App\Models\Permission;
+use App\Models\Auth\Permission;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 
 class RoleManagementController extends Controller
 {
@@ -56,10 +57,17 @@ class RoleManagementController extends Controller
             ]);
         }
 
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|unique:roles,name',
-            'permissions' => 'required'
+            'permissions' => 'required|array'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'error_message' => $validator->errors()->first()
+            ]);
+        }
 
         try {
             $role = RoleAccess::create([
