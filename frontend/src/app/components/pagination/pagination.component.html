@@ -1,0 +1,22 @@
+<nav class="isolate inline-flex -space-x-px rounded-md shadow-sm float-right" aria-label="Pagination">
+  <a *ngFor="let page of pages" class="cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold"
+    [class.bg-amber-600]="page == currentPage"
+    [class.hover:bg-amber-800]="page !== currentPage"
+    [class.text-white]="page == currentPage"
+    [class.z-10]="page == currentPage"
+    [class.ring-1]="page !== currentPage"
+    [class.ring-inset]="page !== currentPage"
+    [class.ring-amber-300]="page !== currentPage"
+    (click)="selectPage(page)"
+  >
+    <ng-container *ngIf="page <= 0">
+      ...
+    </ng-container>
+    <ng-container *ngIf="page > 0">
+      {{ page }}
+    </ng-container>
+  </a>
+</nav>
+<div class="clearfix"></div>
+
+<div class="pb-5"></div>

@@ -15,6 +15,9 @@ import { AuthService } from './services/auth/auth.service';
 export class AppComponent implements OnInit {
   layout = 'login';
   activeRoute = '';
+  isSidebarOpen = false;
+  currentYear: number = new Date().getFullYear();
+
 
   constructor(
     private router: Router,
@@ -24,6 +27,9 @@ export class AppComponent implements OnInit {
   ) {
   }
 
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 
   ngOnInit() {
     this.router.events.pipe(

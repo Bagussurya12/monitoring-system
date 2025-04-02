@@ -4,6 +4,8 @@ import { NotFoundComponent } from './pages/Auth/not-found/not-found.component';
 import { IsLoggedInGuard } from './guards/login/is-logged-in.guard';
 import { IsNotLoggedInGuard } from './guards/is-not-logged-in-guard.guard';
 
+import { routes as settingsRoutes } from './pages/settings/settings.routes';
+
 
 function protectRoutes(routes: Routes): Routes {
   return routes.map(route => ({
@@ -13,7 +15,7 @@ function protectRoutes(routes: Routes): Routes {
 }
 
 const protectedRoutes: Routes = protectRoutes([
-
+  ...settingsRoutes,
 ]);
 
 const routes: Routes = [

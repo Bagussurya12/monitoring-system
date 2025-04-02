@@ -1,0 +1,113 @@
+<div class="px-4 md:px-6 max-w-4xl mx-auto">
+  <!-- Header Section -->
+  <div class="pt-6">
+    <div class="flex items-center justify-between">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        Manage User Access Permissions
+      </h1>
+    </div>
+  </div>
+
+  <div class="border-b border-gray-200 my-4"></div>
+
+  <!-- Messages -->
+  <div *ngIf="successMessage" class="my-4 rounded-lg border-l-4 border-green-500 bg-green-50 p-4 flex items-start animate__animated animate__fadeIn">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span class="text-green-700">{{ successMessage }}</span>
+  </div>
+
+  <div *ngIf="errorMessage" class="my-4 rounded-lg border-l-4 border-red-500 bg-red-50 p-4 flex items-start animate__animated animate__fadeIn">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-red-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span class="text-red-700">{{ errorMessage }}</span>
+  </div>
+
+  <!-- User Info Card -->
+  <div *ngIf="!settingUp && successSetup" class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-6 animate__animated animate__fadeIn">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <!-- User Name -->
+      <div class="space-y-1">
+        <label class="block text-sm font-medium text-gray-500">Name</label>
+        <p class="text-lg font-medium text-gray-900">{{ user.name }}</p>
+      </div>
+
+      <!-- Username -->
+      <div class="space-y-1">
+        <label class="block text-sm font-medium text-gray-500">Username</label>
+        <p class="text-lg font-medium text-gray-900">{{ user.username }}</p>
+      </div>
+
+      <!-- Current Role -->
+      <div class="space-y-1">
+        <label class="block text-sm font-medium text-gray-500">Current Role</label>
+        <p class="text-lg font-medium text-amber-600">
+          {{ roles.length > 0 ? roles[0]?.name : 'Not Assigned' }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Role Assignment -->
+    <div class="space-y-4">
+      <label for="role_selectize" class="block text-sm font-medium text-gray-700">
+        Assign New Role
+      </label>
+      <div class="relative">
+        <p class="text-xs text-gray-500 mb-1 italic flex items-center" [id]="'fetching_role_id'" [hidden]="true">
+          <svg class="animate-spin -ml-1 mr-1 h-3 w-3 text-amber-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Loading roles...
+        </p>
+        <select [name]="'role_selectize'" [id]="'role_selectize'"
+                class="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all">
+          <option value="">Select a role</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="mt-8 pt-5 border-t border-gray-200 flex justify-end space-x-3">
+      <button type="button" (click)="location.back()"
+              class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-300"
+              [disabled]="saving">
+        Cancel
+      </button>
+
+      <ng-container *ngIf="permissionService.hasPermission('Settings - User - Assign Users to Roles')">
+        <button type="submit" (click)="save()"
+                class="relative flex items-center px-6 py-2.5 border border-transparent rounded-lg shadow-sm text-white bg-gradient-to-r from-amber-600 to-red-600 hover:from-amber-700 hover:to-red-700 transition-all duration-300"
+                [disabled]="saving">
+          <svg *ngIf="!saving" xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+          </svg>
+          <span *ngIf="!saving">Save Changes</span>
+          <span *ngIf="saving" class="flex items-center">
+            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Saving...
+          </span>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div *ngIf="settingUp && !successSetup" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl text-center animate__animated animate__fadeIn">
+      <svg class="animate-spin mx-auto h-10 w-10 text-amber-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <p class="mt-4 text-gray-700">Loading user data...</p>
+    </div>
+  </div>
+</div>

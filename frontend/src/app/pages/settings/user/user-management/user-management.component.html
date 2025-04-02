@@ -1,0 +1,251 @@
+<div class="px-4 md:px-6">
+  <!-- Header Section -->
+  <div id="header" class="pt-6 -mt-2">
+    <div class="flex flex-col sm:flex-row items-start justify-between gap-4 w-full">
+      <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center">
+          <h1 class="flex items-center text-2xl xl:text-3xl text-gray-800 font-semibold whitespace-nowrap">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+              User Management
+          </h1>
+        </div>
+
+        <ng-container *ngIf="permissionService.hasPermission('Settings - User - Can Create User Management')">
+          <div class="flex-shrink-0">
+            <a [routerLink]="'/settings/users/user-management/create'"
+               class="flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-amber-600 to-red-600 text-white hover:from-amber-700 hover:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              New User
+            </a>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Search Section -->
+    <section class="mt-8 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="p-5">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Name</label>
+            <input type="text"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
+                   name="name"
+                   id="name"
+                   [(ngModel)]="name_search"
+                   placeholder="Enter name...">
+          </div>
+
+          <div class="form-group">
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="username">Username</label>
+            <input type="text"
+                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
+                   name="username"
+                   id="username"
+                   [(ngModel)]="username_search"
+                   placeholder="Enter username...">
+          </div>
+
+          <div class="flex items-end">
+            <button (click)="getUsers()"
+                    class="flex items-center px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-all duration-300 shadow hover:shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Messages -->
+  <div class="my-4 rounded-lg border-l-4 border-red-500 bg-red-50 p-4 text-base text-red-700 flex items-start"
+       *ngIf="errorMessage !== null && errorMessage !== undefined && errorMessage.length > 0">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    {{ errorMessage }}
+  </div>
+
+  <div class="my-4 rounded-lg border-l-4 border-green-500 bg-green-50 p-4 text-base text-green-700 flex items-start"
+       *ngIf="successMessage !== null && successMessage !== undefined && successMessage.length > 0">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    {{ successMessage }}
+  </div>
+
+  <!-- Users Table -->
+  <div class="mt-6 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Name
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Username
+            </th>
+            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <ng-container *ngIf="!loading">
+            <tr *ngFor="let user of users"
+                class="hover:bg-gray-50 transition-colors duration-150">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900 cursor-pointer hover:text-amber-600" (click)="viewUser(user)">
+                      {{ user.name }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900">{{ user.username }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                <div class="flex justify-center space-x-3">
+                  <!-- Delete Button -->
+                  <button (click)="openDeleteModal(user)"
+                          class="p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 transition-colors duration-300 tooltip"
+                          data-tooltip="Delete User">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+
+                  <!-- Reset 2FA Button -->
+                  <button (click)="openResetModal(user)"
+                          class="p-2 rounded-full bg-yellow-50 text-yellow-600 hover:bg-yellow-100 transition-colors duration-300 tooltip"
+                          data-tooltip="Reset 2FA">
+                    <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0" fill-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+
+          <ng-container *ngIf="loading">
+            <tr>
+              <td colspan="3" class="px-6 py-12 text-center">
+                <div class="flex flex-col items-center justify-center">
+                  <svg aria-hidden="true" class="w-10 h-10 text-gray-200 animate-spin fill-amber-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                  </svg>
+                  <p class="mt-3 text-gray-500">Loading users...</p>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && users.length === 0" class="mt-8 text-center">
+    <div class="mx-auto w-24 h-24 text-gray-400">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+    <h3 class="mt-2 text-lg font-medium text-gray-900">No users found</h3>
+    <p class="mt-1 text-gray-500">Try adjusting your search or filter to find what you're looking for.</p>
+    <div class="mt-6">
+      <button (click)="getUsers()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- Reset 2FA Modal -->
+  <div *ngIf="showResetModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
+    <div class="bg-white rounded-lg shadow-xl transform transition-all duration-300 sm:max-w-lg w-full mx-4">
+      <div class="p-6">
+        <div class="flex items-start">
+          <div class="flex-shrink-0 h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Reset Two-Factor Authentication</h3>
+            <div class="mt-2">
+              <p class="text-sm text-gray-500">Are you sure you want to reset Two-Factor Authentication for this user? This action cannot be undone.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+          <button (click)="confirmReset()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:ml-3 sm:w-auto sm:text-sm">
+            Confirm Reset
+          </button>
+          <button (click)="closeModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 sm:mt-0 sm:w-auto sm:text-sm">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!--Delete Modal -->
+    <div *ngIf="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
+      <div class="bg-white rounded-lg shadow-xl transform transition-all duration-300 sm:max-w-lg w-full mx-4">
+        <div class="p-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-lg leading-6 font-medium text-red-800">Delete User</h3>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">Are you sure you want to delete this user? This action cannot be undone.</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+            <button (click)="confirmDelete()" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-700 text-base font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+              Delete
+            </button>
+            <button (click)="closeModal()" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 sm:mt-0 sm:w-auto sm:text-sm">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Pagination -->
+  <div class="mt-6">
+    <app-pagination
+      *ngIf="!loading && users.length > 0"
+      [perPage]="25"
+      [totalItems]="totalItems"
+      [currentPage]="page"
+      (selectedPage)="selectedPage($event)"
+    ></app-pagination>
+  </div>
+</div>

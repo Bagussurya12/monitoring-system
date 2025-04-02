@@ -45,8 +45,8 @@ class User extends Authenticatable
     public static function getSearchables()
     {
         return [
-            'name' => '=',
-            'username' => '=',
+            'name' => 'like',
+            'username' => 'like',
         ];
     }
 

@@ -37,7 +37,7 @@
       <ul class="relative pb-2.5 space-y-1">
         <ng-container *ngIf="permissionService.hasPermission('Settings - User - View User Management in Sidebar')">
           <li class="group relative pb-2.5 text-sm">
-            <a class="ml-2 cursor-pointer flex items-center text-purple hover:bg-amber-50 rounded-lg p-2 transition-colors duration-200" [routerLink]="'/settings/users'" [class.font-semibold]="activeRoute.startsWith('/settings/users')">
+            <a class="ml-2 cursor-pointer flex items-center text-purple hover:bg-amber-50 rounded-lg p-2 transition-colors duration-200" [routerLink]="'/settings/users/user-management'" [class.font-semibold]="activeRoute.startsWith('/settings/users/user-management')">
               <div class="w-6 h-6 flex items-center justify-center mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
@@ -45,14 +45,14 @@
               </div>
               User Management
               <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"
-                [class.opacity-0]="!activeRoute.startsWith('/settings/users')"></span>
+                [class.opacity-0]="!activeRoute.startsWith('/settings/users/user-management')"></span>
             </a>
           </li>
         </ng-container>
 
         <ng-container *ngIf="permissionService.hasPermission('Settings - User - View Role Management in Sidebar')">
           <li class="group relative pb-2.5 text-sm">
-            <a class="ml-2 cursor-pointer flex items-center text-purple hover:bg-amber-50 rounded-lg p-2 transition-colors duration-200" [routerLink]="'/settings/role-access-managements'" [class.font-semibold]="activeRoute.startsWith('/settings/role-access-managements')">
+            <a class="ml-2 cursor-pointer flex items-center text-purple hover:bg-amber-50 rounded-lg p-2 transition-colors duration-200" [routerLink]="'/settings/users/role-managements'" [class.font-semibold]="activeRoute.startsWith('/settings/users/role-managements')">
               <div class="w-6 h-6 flex items-center justify-center mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
@@ -60,14 +60,14 @@
               </div>
               Role Management
               <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"
-                [class.opacity-0]="!activeRoute.startsWith('/settings/role-access-managements')"></span>
+                [class.opacity-0]="!activeRoute.startsWith('/settings/users/role-managements')"></span>
             </a>
           </li>
         </ng-container>
 
         <ng-container *ngIf="permissionService.hasPermission('Settings - User - View Access Management in Sidebar')">
           <li class="group relative pb-2.5 text-sm">
-            <a class="ml-2 cursor-pointer flex items-center text-purple hover:bg-amber-50 rounded-lg p-2 transition-colors duration-200" [routerLink]="'/settings/user-access-managements'" [class.font-semibold]="activeRoute.startsWith('/settings/user-access-managements')">
+            <a class="ml-2 cursor-pointer flex items-center text-purple hover:bg-amber-50 rounded-lg p-2 transition-colors duration-200" [routerLink]="'/settings/users/access-managements'" [class.font-semibold]="activeRoute.startsWith('/settings/users/access-managements')">
               <div class="w-6 h-6 flex items-center justify-center mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
@@ -75,7 +75,7 @@
               </div>
               Access Management
               <span class="bg-purple absolute h-5 -right-5 rounded-tl-lg rounded-bl-lg group-hover:opacity-100 transition-all pointer-events-none" style="width: 5px;"
-                [class.opacity-0]="!activeRoute.startsWith('/settings/user-access-managements')"></span>
+                [class.opacity-0]="!activeRoute.startsWith('/settings/users/access-managements')"></span>
             </a>
           </li>
         </ng-container>
