@@ -81,4 +81,14 @@ export const routes: Routes = [
           IsLoggedInGuard,
       ]
     },
+    {
+      path: 'settings/users/access-managements/view/:id',
+      loadChildren: () => import('./user/access-management/view/view.module').then(m => m.ViewModule),
+      data: {
+          layout: 'app'
+      },
+      canActivate: [
+          IsLoggedInGuard,
+      ]
+    },
 ]

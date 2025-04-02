@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\UserAccessManagementController;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Users\RoleManagementController as RoleController;
+use App\Http\Controllers\Users\AccessManagementController as AccessController;
 
 
 Route::post('login', [LoginController::class, '__invoke']);
@@ -24,6 +25,14 @@ Route::middleware('auth:sanctum')->group(function (){
             Route::delete('destroy/{id}', [RoleController::class, 'destroy']);
             Route::get('get-permissions', [RoleController::class, 'getPermissions']);
             Route::post('assign-role', [RoleController::class, 'assignRole']);
+        });
+        Route::prefix('user-access-managements')->group(function () {
+            Route::get('/', [AccessController::class, 'index']);
+            Route::get('show/{id}', [AccessController::class, 'show']);
+            Route::get('get-roles', [AccessController::class, 'getRoles']);
+            Route::get('get-permissions', [AccessController::class, 'getPermissions']);
+            Route::get('get-all-roles', [AccessController::class, 'getAllRoles']);
+            Route::post('assign-role', [AccessController::class, 'assignRole']);
         });
     });
 });

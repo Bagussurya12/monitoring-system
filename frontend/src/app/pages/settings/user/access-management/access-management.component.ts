@@ -31,7 +31,7 @@ export class AccessManagementComponent {
   ) {};
 
   viewUser(user: any) {
-    this.router.navigateByUrl('/settings/user-access-managements/view/' + user.id);
+    this.router.navigateByUrl('/settings/users/access-managements/view/' + user.id);
   }
 
   async getUsers() {
@@ -86,7 +86,6 @@ export class AccessManagementComponent {
         return;
       }
       this.page = page;
-      this.getUsers();
     });
   }
 }
