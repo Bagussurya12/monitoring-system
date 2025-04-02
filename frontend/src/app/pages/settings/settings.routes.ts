@@ -48,4 +48,14 @@ export const routes: Routes = [
           IsLoggedInGuard,
       ]
     },
+    {
+      path: 'settings/users/role-managements/create',
+      loadChildren: () => import('./user/role-management/create/create.module').then(m => m.CreateModule),
+      data: {
+          layout: 'app'
+      },
+      canActivate: [
+          IsLoggedInGuard,
+      ]
+    },
 ]
