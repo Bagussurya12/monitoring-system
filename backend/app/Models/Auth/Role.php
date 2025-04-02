@@ -27,7 +27,7 @@ class Role extends Model
     public static function getSearchables()
     {
         return [
-            'name' => '=',
+            'name' => 'like',
             'permission' => '=',
         ];
     }

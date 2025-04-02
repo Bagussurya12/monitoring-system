@@ -20,6 +20,8 @@ export class RoleManagementComponent {
   name: any = '';
   permissions: any = [];
   permission: any = '';
+  showDeleteModal: boolean = false;
+  selectedRole : any = null;
 
   name_search: any = '';
   permission_search: any = '';
@@ -36,7 +38,7 @@ export class RoleManagementComponent {
   async deleteRole(role: any) {
     this.errorMessage = '';
     this.successMessage = '';
-    if (confirm('Are you sure you want to delete this role ?')) {
+
       this.loading = true;
       try {
         const res = await axios.delete(`${environment.api_url}/settings/role-access-managements/destroy/${role.id}`, {
@@ -60,12 +62,12 @@ export class RoleManagementComponent {
           component.successMessage = '';
         }, 1500);
         window.scrollTo(0,0);
+        this.loading = false;
+        this.getRoles();
       } catch (error) {
         this.loading = false;
-        console.log(error);
         this.errorMessage = 'Sorry, something went wrong. Please try again later!';
       }
-    }
   }
 
   async getRoles() {
@@ -109,6 +111,23 @@ export class RoleManagementComponent {
   selectedPage(page: any) {
     this.page = page;
     this.getRoles();
+  }
+
+  confirmDelete(){
+    if(this.selectedRole){
+      this.deleteRole(this.selectedRole)
+    }
+    this.closeModal();
+  }
+
+  openDeleteModal(role: any){
+    this.selectedRole = role;
+    this.showDeleteModal = true;
+  }
+
+  closeModal() {
+    this.selectedRole = null;
+    this.showDeleteModal = false;
   }
 
   ngOnInit() {
