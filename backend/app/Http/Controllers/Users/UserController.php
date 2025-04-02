@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -89,6 +90,7 @@ class UserController extends Controller
                 'error_message' => "Sorry, you do not have permissions to this action."
             ]);
         }
+
         $messages = [
             'password.regex' => 'Password must have at least one uppercase letter, one number, and one special character.',
             'password.min' => 'Password must be at least 8 characters long.',
@@ -96,7 +98,7 @@ class UserController extends Controller
             'password.confirmed' => 'Password confirmation does not match.',
         ];
 
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'username' => 'required|alpha_dash|max:255|unique:users,username,NULL,id,deleted_at,NULL',
             'password' => [
@@ -109,7 +111,14 @@ class UserController extends Controller
                 'max:100'
             ],
             'password_confirmation' => 'required',
-        ],$messages);
+        ], $messages);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'error_message' => $validator->errors()->first()
+            ]);
+        }
 
         $user = User::create([
             'username' => $request->username,
@@ -163,7 +172,6 @@ class UserController extends Controller
             'username' => 'required|unique:users,username,' . $id . ',id,deleted_at,NULL',
         ];
 
-
         if (!empty($request->password)) {
             $dataToValidate['password'] = [
                 'required',
@@ -183,7 +191,14 @@ class UserController extends Controller
             'password.confirmed' => 'Password confirmation does not match.',
         ];
 
-        $this->validate($request, $dataToValidate, $messages);
+        $validator = Validator::make($request->all(), $dataToValidate, $messages);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'error_message' => $validator->errors()->first()
+            ]);
+        }
 
         $user = User::find($id);
         if (empty($user)) {
@@ -198,7 +213,6 @@ class UserController extends Controller
             $updateData['password'] = Hash::make($request->password);
             $updateData['changed_password'] = 1;
         }
-
 
         $user->update(array_merge($request->except([
             'password',

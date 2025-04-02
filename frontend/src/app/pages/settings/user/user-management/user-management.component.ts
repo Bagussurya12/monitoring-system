@@ -51,7 +51,7 @@ export class UsersComponent implements OnInit {
   }
 
   viewUser(user: any) {
-    this.router.navigateByUrl('/settings/users/view/' + user.id + '?tab=user_details');
+    this.router.navigateByUrl('/settings/users/user-management/view/' + user.id);
   }
 
   async getUsers() {
