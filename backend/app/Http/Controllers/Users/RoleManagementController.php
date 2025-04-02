@@ -8,6 +8,7 @@ use App\Models\Auth\Role as RoleAccess;
 use App\Models\Auth\Permission;
 use Exception;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RoleManagementController extends Controller
 {
@@ -155,7 +156,7 @@ class RoleManagementController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $user = auth()->user();
         if (!$user->hasPermissionTo('Settings - User - Can Update Role Access Management')) {
@@ -165,30 +166,28 @@ class RoleManagementController extends Controller
             ]);
         }
 
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name,'.$request->id,
-            'permissions' => 'required'
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:roles,name,' . $id,
+            'permissions' => 'required|array'
         ]);
 
-        $role = RoleAccess::find($request->id);
-
-        if (empty($role)) {
+        if ($validator->fails()) {
             return response()->json([
                 'error' => true,
-                'error_message' => "Sorry, we couldn't find that role!"
+                'error_message' => $validator->errors()->first()
             ]);
         }
 
         try {
-            $role->name = $request->name;
-            $role->save();
-
-            $role->syncPermissions($request->permissions);
+            DB::transaction(function () use ($request, $id) {
+                $role = RoleAccess::findOrFail($id);
+                $role->update(['name' => $request->name]);
+                $role->syncPermissions($request->permissions);
+            });
 
             return response()->json([
                 'error' => false,
-                'message' => "Role has been updated successfully!",
-                'role' => $role
+                'message' => "Role has been updated successfully!"
             ]);
         } catch (Exception $e) {
             return response()->json([

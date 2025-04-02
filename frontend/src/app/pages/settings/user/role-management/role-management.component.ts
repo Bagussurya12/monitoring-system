@@ -30,7 +30,7 @@ export class RoleManagementComponent {
   ) {};
 
   viewRole(role: any) {
-    this.router.navigateByUrl('/settings/role-access-managements/view/' + role.id);
+    this.router.navigateByUrl('/settings/users/role-managements/view/' + role.id);
   }
 
   async deleteRole(role: any) {
