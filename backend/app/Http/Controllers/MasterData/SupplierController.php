@@ -4,6 +4,7 @@ namespace App\Http\Controllers\MasterData;
 
 use App\Http\Controllers\Controller;
 use App\Models\MasterData\Suppliers;
+use App\Http\Requests\MasterData\SupplierRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Exception;

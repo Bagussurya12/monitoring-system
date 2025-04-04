@@ -34,6 +34,7 @@
     <section class="mt-8 bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div class="p-5">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Supplier Name -->
           <div class="form-group">
             <label class="block text-sm font-medium text-gray-700 mb-1.5" for="name">Supplier Name</label>
             <div class="relative">
@@ -51,6 +52,7 @@
             </div>
           </div>
 
+          <!-- Supplier Code -->
           <div class="form-group">
             <label class="block text-sm font-medium text-gray-700 mb-1.5" for="supplier_code">Supplier Code</label>
             <div class="relative">
@@ -69,43 +71,48 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="block text-sm font-medium text-gray-700 mb-1.5" for="supplier_category">Supplier Category</label>
-            <div class="relative">
-              <select type="text"
-                     class="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all shadow-sm"
-                     name="supplier_category"
-                     id="supplier_category"
-                     [(ngModel)]="supplier_category"
-                     placeholder="Search by code...">
-                     <option value="Building material">Building material</option>
-                     <option value="Mechanical, Electrical and Plumbing Materials">Mechanical, Electrical and Plumbing Materials</option>
-                     <option value="Equipment and Heavy Equipment">Equipment and Heavy Equipment</option>
-                     <option value="Finishing & Interiors">Finishing & Interiors</option>
-                     <option value="Subcontractor">Subcontractor</option>
-                     <option value="Project Safety and Logistics Tools">Project Safety and Logistics Tools</option>
-                     <option value="Garden and Garden Equipment">Garden and Garden Equipment</option>
+          <!-- Supplier Category & Search Button (in one row) -->
+          <div class="form-group flex items-center space-x-4">
+            <div class="w-full">
+              <label class="block text-sm font-medium text-gray-700 mb-1.5" for="supplier_category">Supplier Category</label>
+              <div class="relative">
+                <select type="text"
+                        class="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all shadow-sm"
+                        name="supplier_category"
+                        id="supplier_category"
+                        [(ngModel)]="supplier_category"
+                        placeholder="Search by category...">
+                  <option value="Building material">Building material</option>
+                  <option value="Mechanical, Electrical and Plumbing Materials">Mechanical, Electrical and Plumbing Materials</option>
+                  <option value="Equipment and Heavy Equipment">Equipment and Heavy Equipment</option>
+                  <option value="Finishing & Interiors">Finishing & Interiors</option>
+                  <option value="Subcontractor">Subcontractor</option>
+                  <option value="Project Safety and Logistics Tools">Project Safety and Logistics Tools</option>
+                  <option value="Garden and Garden Equipment">Garden and Garden Equipment</option>
                 </select>
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="2" y="2" width="8" height="8" fill="#BDBDBD"/>
-                  <rect x="14" y="2" width="8" height="8" fill="#BDBDBD"/>
-                  <rect x="2" y="14" width="8" height="8" fill="#BDBDBD"/>
-                  <rect x="14" y="14" width="8" height="8" fill="#BDBDBD"/>
-                </svg>
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="8" height="8" fill="#BDBDBD"/>
+                    <rect x="14" y="2" width="8" height="8" fill="#BDBDBD"/>
+                    <rect x="2" y="14" width="8" height="8" fill="#BDBDBD"/>
+                    <rect x="14" y="14" width="8" height="8" fill="#BDBDBD"/>
+                  </svg>
+                </div>
               </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="flex items-center">
+              <button (click)="getSuppliers()"
+                      class="flex items-center mt-5 px-4 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <span class="font-medium">Search</span>
+              </button>
             </div>
           </div>
 
-          <div class="flex items-end">
-            <button (click)="getSuppliers()"
-                    class="w-full flex items-center justify-center px-4 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <span class="font-medium">Search</span>
-            </button>
-          </div>
         </div>
       </div>
     </section>
