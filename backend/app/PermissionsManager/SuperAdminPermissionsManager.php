@@ -32,5 +32,25 @@ class SuperAdminPermissionsManager extends PermissionsManager
         // User Access Management
         'Settings - User - View Access Management in Sidebar',
         'Settings - User - Assign Users to Roles',
+
+
+        // ==================== Master Data ===================== //
+        'Master Data - View Master Data in Sidebar',
+
+        // Location Management
+        'Master Data - Location - View Location Management in Sidebar',
+        'Master Data - Location - Can List Location Management',
+        'Master Data - Location - Can Create Location Management',
+        'Master Data - Location - Can Show Location Management',
+        'Master Data - Location - Can Update Location Management',
+        'Master Data - Location - Can Delete Location Management',
+
+        // Suppliers Management
+        'Master Data - Suppliers - View Supppliers Management in Sidebar',
+        'Master Data - Suppliers - Can List Supppliers Management',
+        'Master Data - Suppliers - Can Create Supppliers Management',
+        'Master Data - Suppliers - Can Show Supppliers Management',
+        'Master Data - Suppliers - Can Update Supppliers Management',
+        'Master Data - Suppliers - Can Delete Supppliers Management',
     ];
 }
