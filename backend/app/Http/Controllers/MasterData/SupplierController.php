@@ -67,7 +67,7 @@ class SupplierController extends Controller
         try {
             $user = auth()->user();
 
-            if (!$user->hasPermissionTo('Master Data - Suppliers - Can Create Supplier')) {
+            if (!$user->hasPermissionTo('Master Data - Suppliers - Can Create Supppliers Management')) {
                 return response()->json([
                     'error' => true,
                     'code' => 403,
@@ -101,7 +101,7 @@ class SupplierController extends Controller
         try {
             $user = auth()->user();
 
-            if (!$user->hasPermissionTo('Master Data - Suppliers - Can View Supplier')) {
+            if (!$user->hasPermissionTo('Master Data - Suppliers - Can View Supppliers Management')) {
                 return response()->json([
                     'error' => true,
                     'code' => 403,
@@ -135,7 +135,7 @@ class SupplierController extends Controller
         try {
             $user = auth()->user();
 
-            if (!$user->hasPermissionTo('Master Data - Suppliers - Can Update Supplier')) {
+            if (!$user->hasPermissionTo('Master Data - Suppliers - Can Update Supppliers Management')) {
                 return response()->json([
                     'error' => true,
                     'code' => 403,
@@ -171,7 +171,7 @@ class SupplierController extends Controller
         try {
             $user = auth()->user();
 
-            if (!$user->hasPermissionTo('Master Data - Suppliers - Can Delete Supplier')) {
+            if (!$user->hasPermissionTo('Master Data - Suppliers - Can Delete Supppliers Management')) {
                 return response()->json([
                     'error' => true,
                     'code' => 403,

@@ -36,7 +36,7 @@ class Suppliers extends Model
         return [
             'supplier_name' => 'like',
             'supplier_code' => 'like',
-            'supplier_category' => '=',
+            'supplier_category' => 'like',
 
         ];
     }
