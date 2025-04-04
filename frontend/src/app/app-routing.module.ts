@@ -5,6 +5,7 @@ import { IsLoggedInGuard } from './guards/login/is-logged-in.guard';
 import { IsNotLoggedInGuard } from './guards/is-not-logged-in-guard.guard';
 
 import { routes as settingsRoutes } from './pages/settings/settings.routes';
+import { routes as masterDataRoutes } from './pages/master-data/masterData.routes'
 
 
 function protectRoutes(routes: Routes): Routes {
@@ -16,6 +17,7 @@ function protectRoutes(routes: Routes): Routes {
 
 const protectedRoutes: Routes = protectRoutes([
   ...settingsRoutes,
+  ...masterDataRoutes
 ]);
 
 const routes: Routes = [

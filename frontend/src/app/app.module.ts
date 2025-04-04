@@ -6,12 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NotFoundModule } from './pages/Auth/not-found/not-found.module';
 import { SettingsLinkModule } from './components/sidebar-menu/links/settings-link/settings-link/settings-link.module';
-
+import { MasterDataModule } from './components/sidebar-menu/links/master-data/master-data.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -19,7 +18,8 @@ import { SettingsLinkModule } from './components/sidebar-menu/links/settings-lin
     BrowserAnimationsModule,
     HttpClientModule,
     HttpClientModule,
-    SettingsLinkModule
+    SettingsLinkModule,
+    MasterDataModule
   ],
   providers: [
   ],
